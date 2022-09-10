@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft/libft.h"
 
-static void	putdigit(int d, char formatter, int fd)
+static void	putdigit(int d, char formatter)
 {
 	char	set[17] = "0123456789";
 	char	lowerhex[17] = "abcdef";
@@ -33,7 +33,7 @@ static void	parse_nbr(int *base, char formatter)
 		*base = 16;
 }
 
-void	ft_putnbr_base_fd(int n, char formatter, int fd)
+void	ft_putnbr(int n, char formatter)
 {
 	long int	n2;
 	int			base;
@@ -42,10 +42,10 @@ void	ft_putnbr_base_fd(int n, char formatter, int fd)
 	parse_nbr(&base, formatter);
 	if (n2 < 0)
 	{
-		ft_putchar_fd('-', fd);
+		ft_putchar_fd('-', 1);
 		n2 = n2 * -1;
 	}
 	if (n2 >= base)
-		ft_putnbr_base_fd(n2 / base, formatter, fd);
-	putdigit(n2 % base, fd);
+		ft_putnbr(n2 / base, formatter);
+	putdigit(n2 % base, formatter);
 }

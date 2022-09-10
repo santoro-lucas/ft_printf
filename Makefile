@@ -12,7 +12,7 @@
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c
+SRCS = ft_printf.c ft_printf_utils.c
 
 OBJS = $(SRC:.c=.o)
 
@@ -20,9 +20,6 @@ all: libft $(NAME)
 
 $(NAME):
 	$(AR)
-
-libft:
-	$(MAKE) -C ./libft/
 
 clean:
 
