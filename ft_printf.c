@@ -1,30 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/10 18:53:00 by lusantor          #+#    #+#             */
+/*   Updated: 2022/09/10 18:53:00 by lusantor         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
+#define CALLER 
+#define FORMATTER *(string + offset)
 
 int	ft_printf(const char *string, ...)
 {
-	va_list	argument;
+	va_list	arguments;
 	int		offset;
 
 	offset = 0;
-	va_start(argument, string);
-	while (*(string + offset))
+	va_start(arguments, string);
+	while (FORMATTER)
 	{
-		if (*(string + offset) == '%')
+		if (FORMATTER == '%')
 		{
 			offset++;
-			if (*(string + offset) == '%')
+			if (FORMATTER == '%')
 				ft_putchar('%');
-			if (*(string + offset) == 'c')
-				ft_putchar(va_arg(argument, int));
-			if (*(string + offset) == 's')
-				ft_putstr(va_arg(argument, char *));
-			if (ft_strchr("pdiuxX", *(string + offset)))
-				ft_putnbr(va_arg(argument, int), *(string + offset));
+			if (FORMATTER == 'c')
+				ft_putchar(va_arg(arguments, int));
+			if (FORMATTER == 's')
+				ft_putstr(va_arg(arguments, char *));
+			if (ft_strchr("pdiuxX", FORMATTER))
+				ft_putnbr(va_arg(arguments, int), FORMATTER);
 		}
 		else
-			ft_putchar(*(string + offset));
+			ft_putchar(FORMATTER);
 		offset++;
 	}
-	va_end(argument);
+	va_end(arguments);
 	return (1);
 }
