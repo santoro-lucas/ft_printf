@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdarg.h>
-#include "ft_printf_utils.h"
+#include "ft_printf.h"
 
 int	ft_printf(const char *string, ...)
 {
@@ -30,11 +27,4 @@ int	ft_printf(const char *string, ...)
 	}
 	va_end(argument);
 	return (1);
-}
-
-int main(void)
-{
-	printf("here it goes %s", "again");
-	ft_printf("here it goes again");
-	return (0);
 }
