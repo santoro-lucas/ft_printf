@@ -6,11 +6,14 @@
 /*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:53:16 by lusantor          #+#    #+#             */
-/*   Updated: 2022/09/10 18:53:17 by lusantor         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:04:25 by lusantor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#define DECIMAL_SET "01234566789"
+#define LOWERHEX_SET "0123456789abcdefg"
+#define UPPERHEX_SET "0123456789ABCDEF"
 
 size_t	ft_strlen(const char *str)
 {
@@ -24,40 +27,25 @@ size_t	ft_strlen(const char *str)
 
 char	*ft_strchr(const char *s, int c)
 {
-		while ((*s != (char) c) && (*s != '\0'))
-				s++;
-		if (*s == (char) c)
-				return ((char *) s);
-		else
-				return (NULL);
+	while ((*s != (char) c) && (*s != '\0'))
+			s++;
+	if (*s == (char) c)
+		return ((char *) s);
+	else
+		return (NULL);
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-		size_t	src_size;
+	size_t	src_size;
 
-		src_size = ft_strlen(src);
-		if (size == 0)
-				return (src_size);
-		while (size-- > 1 && *src != '\0')
-				*dst++ = *src++;
-		*dst = '\0';
+	src_size = ft_strlen(src);
+	if (size == 0)
 		return (src_size);
-}
-
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
-{
-		size_t	dst_size;
-		size_t	src_size;
-
-		dst_size = ft_strlen(dst);
-		src_size = ft_strlen(src);
-		if (size <= dst_size)
-				return (size + src_size);
-		dst += dst_size;
-		size -= dst_size;
-		ft_strlcpy(dst, src, size);
-		return (dst_size + src_size);
+	while (size-- > 1 && *src != '\0')
+			*dst++ = *src++;
+	*dst = '\0';
+	return (src_size);
 }
 
 int	ft_putchar(char c)
@@ -72,14 +60,14 @@ int	ft_putstr(char *str)
 
 static void	putdigit(int d, char formatter)
 {
-	char	set[17] = "0123456789";
-	char	lowerhex[17] = "abcdef";
-	char	upperhex[17] = "ABCDEF";
-	
+	char	set[17];
+
+	if (ft_strchr("diu", formatter))
+		ft_strlcpy(set, DECIMAL_SET, 17);
 	if (formatter == 'p' || formatter == 'x')
-		ft_strlcat(set, lowerhex, 17);
+		ft_strlcpy(set, LOWERHEX_SET, 17);
 	else if (formatter == 'X')
-		ft_strlcat(set, upperhex, 17);
+		ft_strlcpy(set, UPPERHEX_SET, 17);
 	ft_putchar(*(set + d));
 }
 
@@ -87,16 +75,18 @@ static void	parse_nbr(int *base, char formatter)
 {
 	if (formatter == 'd' || formatter == 'i' || formatter == 'u')
 		*base = 10;
-	else if (formatter == 'p'|| formatter == 'x' || formatter == 'X')
+	else if (formatter == 'p' || formatter == 'x' || formatter == 'X')
 		*base = 16;
 }
 
-void	ft_putnbr(int n, char formatter)
+int	ft_putnbr(int n, char formatter)
 {
 	long int	n2;
 	int			base;
-	
+	int			counter;
+
 	n2 = n;
+	counter = 0;
 	parse_nbr(&base, formatter);
 	if (n2 < 0)
 	{
@@ -106,4 +96,5 @@ void	ft_putnbr(int n, char formatter)
 	if (n2 >= base)
 		ft_putnbr(n2 / base, formatter);
 	putdigit(n2 % base, formatter);
+	return (counter);
 }

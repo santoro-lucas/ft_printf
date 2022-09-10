@@ -11,34 +11,32 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define CALLER 
-#define FORMATTER *(string + offset)
 
 int	ft_printf(const char *string, ...)
 {
 	va_list	arguments;
-	int		offset;
+	int		counter;
 
-	offset = 0;
+	counter = 0;
 	va_start(arguments, string);
-	while (FORMATTER)
+	while (*string)
 	{
-		if (FORMATTER == '%')
+		if (*string == '%')
 		{
-			offset++;
-			if (FORMATTER == '%')
-				ft_putchar('%');
-			if (FORMATTER == 'c')
-				ft_putchar(va_arg(arguments, int));
-			if (FORMATTER == 's')
-				ft_putstr(va_arg(arguments, char *));
-			if (ft_strchr("pdiuxX", FORMATTER))
-				ft_putnbr(va_arg(arguments, int), FORMATTER);
+			string++;
+			if (*string == '%')
+				counter += ft_putchar('%');
+			if (*string == 'c')
+				counter += ft_putchar(va_arg(arguments, int));
+			if (*string == 's')
+				counter += ft_putstr(va_arg(arguments, char *));
+			if (ft_strchr("pdiuxX", *string))
+				counter += ft_putnbr(va_arg(arguments, int), *string);
 		}
 		else
-			ft_putchar(FORMATTER);
-		offset++;
+			counter += ft_putchar(*string);
+		string++;
 	}
 	va_end(arguments);
-	return (1);
+	return (counter);
 }
