@@ -11,19 +11,29 @@
 #* ************************************************************************** *#
 
 NAME = libftprintf.a
+CFLAGS	=	-Wall -Wextra -Werror -c
 
-SRCS = ft_printf.c ft_printf_utils.c
+SRC = ft_printf.c ft_printf_utils.c
 
-OBJS = $(SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
 
-all: libft $(NAME)
+all: $(NAME)
 
-$(NAME):
-	$(AR)
+$(NAME): ft_printf.h $(OBJ)
+	$(AR) -rcs $(NAME) $(OBJ)
 
-clean:
+$(OBJ):$(SRC)
+	$(CC) $(CFLAGS) -c $(SRC)
 
-fclean:
+clean: 
+	$(RM) $(OBJ)
+
+fclean: clean
+	$(RM) $(NAME)
 
 re: fclean all
-	
+
+test:
+	$(CC) test.c libftprintf.a
+	./a.out
+	$(RM) a.out

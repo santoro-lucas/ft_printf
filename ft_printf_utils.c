@@ -6,7 +6,7 @@
 /*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:53:16 by lusantor          #+#    #+#             */
-/*   Updated: 2022/09/10 20:04:25 by lusantor         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:30:09 by lusantor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ int	ft_putchar(char c)
 
 int	ft_putstr(char *str)
 {
+	if (!str)
+		return (write(1, "(null)", ft_strlen("(null)")));
 	return (write(1, str, ft_strlen(str)));
 }
 
-static void	putdigit(int d, char formatter)
+static int	putdigit(int d, char formatter)
 {
 	char	set[17];
 
@@ -68,33 +70,32 @@ static void	putdigit(int d, char formatter)
 		ft_strlcpy(set, LOWERHEX_SET, 17);
 	else if (formatter == 'X')
 		ft_strlcpy(set, UPPERHEX_SET, 17);
-	ft_putchar(*(set + d));
+	return (ft_putchar(*(set + d)));
 }
 
-static void	parse_nbr(int *base, char formatter)
+static int	parse_nbr(char formatter)
 {
-	if (formatter == 'd' || formatter == 'i' || formatter == 'u')
-		*base = 10;
-	else if (formatter == 'p' || formatter == 'x' || formatter == 'X')
-		*base = 16;
+	if (ft_strchr("pxX", formatter))
+		return (16);
+	return (10);
 }
 
-int	ft_putnbr(int n, char formatter)
+int	ft_putnbr_base(int n, char formatter)
 {
 	long int	n2;
 	int			base;
-	int			counter;
+	static int	counter;
 
 	n2 = n;
 	counter = 0;
-	parse_nbr(&base, formatter);
+	base = parse_nbr(formatter);
 	if (n2 < 0)
 	{
-		ft_putchar('-');
+		counter += ft_putchar('-');
 		n2 = n2 * -1;
 	}
 	if (n2 >= base)
-		ft_putnbr(n2 / base, formatter);
-	putdigit(n2 % base, formatter);
+		ft_putnbr_base(n2 / base, formatter);
+	counter += putdigit(n2 % base, formatter);
 	return (counter);
 }

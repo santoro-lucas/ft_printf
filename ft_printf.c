@@ -31,7 +31,7 @@ int	ft_printf(const char *string, ...)
 			if (*string == 's')
 				counter += ft_putstr(va_arg(arguments, char *));
 			if (ft_strchr("pdiuxX", *string))
-				counter += ft_putnbr(va_arg(arguments, int), *string);
+				counter += ft_putnbr_base(va_arg(arguments, int), *string);
 		}
 		else
 			counter += ft_putchar(*string);

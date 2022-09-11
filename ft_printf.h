@@ -6,7 +6,7 @@
 /*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:53:12 by lusantor          #+#    #+#             */
-/*   Updated: 2022/09/10 19:50:15 by lusantor         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:54:31 by lusantor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
 int		ft_putchar(char c);
 int		ft_putstr(char *str);
-int		ft_putnbr(int n, char formatter);
+int		ft_putnbr_base(int n, char formatter);
 int		ft_printf(const char *string, ...);
 
 #endif
