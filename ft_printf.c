@@ -31,9 +31,9 @@ int	ft_printf(const char *string, ...)
 			if (*string == 's')
 				counter += ft_putstr(va_arg(arguments, char *));
 			if (ft_strchr("di", *string))
-				counter += ft_putnbr_int(va_arg(arguments, int), *string);
+				counter += ft_putnbr_sig(va_arg(arguments, int), *string);
 			if (ft_strchr("puxX", *string))
-				counter += ft_putnbr_nat(va_arg(arguments, unsigned), *string);
+				counter += ft_putnbr_uns(va_arg(arguments, unsigned), *string);
 		}
 		else
 			counter += ft_putchar(*string);

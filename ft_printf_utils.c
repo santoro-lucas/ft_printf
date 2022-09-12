@@ -6,7 +6,7 @@
 /*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:53:16 by lusantor          #+#    #+#             */
-/*   Updated: 2022/09/12 17:58:47 by lusantor         ###   ########.fr       */
+/*   Updated: 2022/09/12 20:08:42 by lusantor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,25 @@ static int	parse_nbr(char formatter)
 	return (10);
 }
 
-int	ft_putnbr_base(int n, char formatter)
+int	ft_putnbr_sig(long int n, char formatter)
 {
-	long int	n2;
-	int			base;
-	int			counter;
+	int	base;
+	int	counter;
 
-	n2 = n;
 	counter = 0;
 	base = parse_nbr(formatter);
-	if (n2 < 0)
+	if (n < 0)
 	{
 		counter += ft_putchar('-');
-		n2 = n2 * -1;
+		n = n * -1;
 	}
-	if (n2 >= base)
-		counter += ft_putnbr_base(n2 / base, formatter);
-	counter += putdigit(n2 % base, formatter);
+	if (n >= base)
+		counter += ft_putnbr_sig(n / base, formatter);
+	counter += putdigit(n % base, formatter);
 	return (counter);
 }
 
-int	ft_put_unsigned_base(unsigned int n, char formatter)
+int	ft_putnbr_uns(unsigned int n, char formatter)
 {
 	unsigned int	base;
 	static int		counter;
@@ -108,7 +106,7 @@ int	ft_put_unsigned_base(unsigned int n, char formatter)
 	counter = 0;
 	base = parse_nbr(formatter);
 	if (n >= base)
-		ft_put_unsigned_base(n / base, formatter);
+		ft_putnbr_uns(n / base, formatter);
 	counter += putdigit(n % base, formatter);
 	return (counter);
 }
