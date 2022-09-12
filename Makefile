@@ -33,7 +33,7 @@ fclean: clean
 
 re: fclean all
 
-test:
+test: re
 	$(CC) test.c libftprintf.a
 	./a.out
 	$(RM) a.out

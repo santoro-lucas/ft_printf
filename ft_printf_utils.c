@@ -6,13 +6,13 @@
 /*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:53:16 by lusantor          #+#    #+#             */
-/*   Updated: 2022/09/10 22:30:09 by lusantor         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:58:47 by lusantor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define DECIMAL_SET "01234566789"
-#define LOWERHEX_SET "0123456789abcdefg"
+#define DECIMAL_SET "0123456789"
+#define LOWERHEX_SET "0123456789abcdef"
 #define UPPERHEX_SET "0123456789ABCDEF"
 
 size_t	ft_strlen(const char *str)
@@ -84,7 +84,7 @@ int	ft_putnbr_base(int n, char formatter)
 {
 	long int	n2;
 	int			base;
-	static int	counter;
+	int			counter;
 
 	n2 = n;
 	counter = 0;
@@ -95,7 +95,20 @@ int	ft_putnbr_base(int n, char formatter)
 		n2 = n2 * -1;
 	}
 	if (n2 >= base)
-		ft_putnbr_base(n2 / base, formatter);
+		counter += ft_putnbr_base(n2 / base, formatter);
 	counter += putdigit(n2 % base, formatter);
+	return (counter);
+}
+
+int	ft_put_unsigned_base(unsigned int n, char formatter)
+{
+	unsigned int	base;
+	static int		counter;
+
+	counter = 0;
+	base = parse_nbr(formatter);
+	if (n >= base)
+		ft_put_unsigned_base(n / base, formatter);
+	counter += putdigit(n % base, formatter);
 	return (counter);
 }
