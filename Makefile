@@ -34,7 +34,7 @@ fclean: clean
 re: fclean all
 
 test: re
-	$(CC) test.c libftprintf.a
+	$(CC) ../testers/test.c libftprintf.a
 	$(RM) $(OBJ)
 	./a.out
 	$(RM) a.out
