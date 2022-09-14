@@ -52,21 +52,19 @@ int	ft_printf(const char *string, ...)
 	va_start(args, string);
 	while (*string)
 	{
-		if (*string == '%')
-			string++;
-		if (*(string - 1) == '%' && *string == '%')
-			counter += ft_putchar(*string);
-		else if (*(string - 1) == '%' && *string == 'c')
+		if (*string != '%')
+			counter += ft_putchar(*string--);
+		else if (*(string + 1) == '%')
+			counter += ft_putchar(*(string + 1));
+		else if (*(string + 1) == 'c')
 			counter += ft_putchar(va_arg(args, int));
-		else if (*(string - 1) == '%' && *string == 's')
+		else if (*(string + 1) == 's')
 			counter += ft_putstr(va_arg(args, char *));
-		else if (*(string - 1) == '%' && ft_strchr("diuxX", *string))
-			counter += ft_parse_nbr(va_arg(args, int), *string);
-		else if (*(string - 1) == '%' && *string == 'p')
-			counter += ft_parse_nbr(va_arg(args, unsigned long), *string);
-		else
-			counter += ft_putchar(*string);
-		string++;
+		else if (ft_strchr("diuxX", *(string + 1)))
+			counter += ft_parse_nbr(va_arg(args, int), *(string + 1));
+		else if (*(string + 1) == 'p')
+			counter += ft_parse_nbr(va_arg(args, unsigned long), *(string + 1));
+		string += 2;
 	}
 	va_end(args);
 	return (counter);

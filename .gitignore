@@ -58,3 +58,4 @@ dkms.conf
 
 # Tester directory
 printfTester
+ft_printf_tester

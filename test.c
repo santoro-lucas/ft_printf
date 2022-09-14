@@ -6,7 +6,7 @@
 /*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:53:07 by lusantor          #+#    #+#             */
-/*   Updated: 2022/09/13 00:40:32 by lusantor         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:22:37 by lusantor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 int	main(void)
 {
-	int	number;
+	int	num;
 
-	number = -1;
-	printf("(%i)\n", printf("%s: %i adress is %p.", "printf", number, &number));
-	printf("(%i)\n", ft_printf("%s: %i adress is %p.", "ft_pri", number, &number));
+	num = -1;
+	printf("(%i)\n", printf("%s: %i adress is %p.", "printf", num, &num));
+	printf("(%i)\n", ft_printf("%s: %i adress is %p.", "ft_pri", num, &num));
 	return (0);
 }
