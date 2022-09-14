@@ -27,7 +27,7 @@ int	ft_putstr(char *str)
 	return (write(1, str, ft_strlen(str)));
 }
 
-int	ft_putnbr(unsigned long int n, unsigned int base, char *set)
+int	ft_putnbr(unsigned int n, unsigned int base, char *set)
 {
 	int	counter;
 
@@ -38,34 +38,34 @@ int	ft_putnbr(unsigned long int n, unsigned int base, char *set)
 	return (counter);
 }
 
-static int	set_base(char formatter, char *set)
+static int	set_base(char flag, char *set)
 {
-	if (ft_strchr("diu", formatter))
+	if (ft_strchr("diu", flag))
 	{
 		ft_strlcpy(set, DECIMAL_SET, 17);
 		return (10);
 	}
-	else if (formatter == 'X')
+	else if (flag == 'X')
 		ft_strlcpy(set, UPPERHEX_SET, 17);
-	else if (formatter == 'x' || formatter == 'p')
+	else if (flag == 'x' || flag == 'p')
 		ft_strlcpy(set, LOWERHEX_SET, 17);
 	return (16);
 }
 
-int	ft_parse_nbr(long int nbr, char formatter)
+int	ft_parse_nbr(long nbr, char flag)
 {
 	char			set[17];
 	int				counter;
-	unsigned int	base;
+	long long int	base;
 
 	counter = 0;
-	base = set_base(formatter, set);
-	if (ft_strchr("id", formatter) && nbr < 0)
+	base = set_base(flag, set);
+	if (ft_strchr("id", flag) && nbr < 0)
 	{
 		counter += ft_putchar('-');
 		nbr = nbr * -1;
 	}
-	if (formatter == 'p')
+	if (flag == 'p')
 	{
 		counter += ft_putstr("0x");
 		counter += ft_putnbr (nbr, base, set);
