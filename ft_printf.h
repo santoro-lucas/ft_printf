@@ -6,7 +6,7 @@
 /*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:53:12 by lusantor          #+#    #+#             */
-/*   Updated: 2022/09/13 00:42:22 by lusantor         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:47:03 by lusantor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_strlen(const char *str);
 int		ft_parse_nbr(long n, char flag);
 int		ft_putchar(char c);
 int		ft_putstr(char *str);
-int		ft_putnbr(unsigned int n, unsigned int base, char *set);
+int		ft_putnbr(unsigned long int n, unsigned int base, char *set);
 int		ft_printf(const char *string, ...);
 
 #endif

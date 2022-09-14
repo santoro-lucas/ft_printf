@@ -6,7 +6,7 @@
 /*   By: lusantor <lusantor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 18:53:16 by lusantor          #+#    #+#             */
-/*   Updated: 2022/09/13 00:42:35 by lusantor         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:46:39 by lusantor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_putstr(char *str)
 	return (write(1, str, ft_strlen(str)));
 }
 
-int	ft_putnbr(unsigned int n, unsigned int base, char *set)
+int	ft_putnbr(unsigned long int n, unsigned int base, char *set)
 {
 	int	counter;
 
